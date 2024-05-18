@@ -4,6 +4,16 @@ window.onload = function() {
 
     // For each div, add a text input element, a number input element, and a submit button
     divs.forEach(div => {
+        // Get the model version
+        const version = div.getAttribute('model-version') || 'v1';
+        const model = window['model' + version];
+        if (!model) {
+            const message = document.createElement('p')
+            message.innerText = 'Model for specified version was not found: ' + version
+            div.appendChild(message);
+            return
+        }
+        
         // Create the text input element
         const textInput = document.createElement('input');
         textInput.type = 'text';
